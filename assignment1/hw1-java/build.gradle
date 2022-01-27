@@ -37,9 +37,13 @@ jar {
     exclude ("config")
     manifest {
         attributes(
+                "Main-Class": "$mainClassName",
                 "Implementation-Title": rootProject.name,
                 "Build-Time": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         )
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
 

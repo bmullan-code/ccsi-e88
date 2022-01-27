@@ -21,6 +21,12 @@ Cloud-Init log
 # ssh using terraform variable for associate_public_ip
 ssh terraform@$(terraform output -raw public_ip) -i ./tf-cloud-init
 
+# copy the jar file to the aws instance
+scp -i ./tf/tf-cloud-init hw1-java/build/libs/cscie88_java_2022-1.0-SNAPSHOT.jar terraform@$(terraform -chdir=tf output -raw public_ip):~ 
+
+# remote execute the command
+ssh -i ./tf/tf-cloud-init terraform@$(terraform -chdir=tf output -raw public_ip) "cd ~; java -jar cscie88_java_2022-1.0-SNAPSHOT.jar 5 5;ls *.txt"
+
 # run the app
 cd go/src/github.com/hashicorp/learn-go-webapp-demo
 go run webapp.go
