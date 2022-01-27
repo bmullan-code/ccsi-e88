@@ -1,0 +1,4 @@
+cscie88/spring2022/hw1/MTFileGenerator.java
+ cscie88.spring2022.hw1.MTFileGenerator
+cscie88/spring2022/hw1/RunnableFileGenerator.java
+ cscie88.spring2022.hw1.RunnableFileGenerator
