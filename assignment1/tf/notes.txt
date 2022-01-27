@@ -1,0 +1,27 @@
+Example
+https://learn.hashicorp.com/tutorials/terraform/cloud-init?in=terraform/provision&utm_source=WEBSITE&utm_medium=WEB_IO&utm_offer=ARTICLE_PAGE&utm_content=DOCS
+
+# create ssh keys
+ssh-keygen -t rsa -C "your_email@example.com" -f ./tf-cloud-init
+
+terraform init
+terraform apply
+terraform destroy
+
+
+Firewall commands
+
+sudo firewall-cmd --add-service=http --permanent
+sudo firewall-cmd --zone=public --permanent --add-port=8080/tcp
+sudo firewall-cmd --reload
+
+Cloud-Init log
+/var/log/cloud-init.log
+
+# ssh using terraform variable for associate_public_ip
+ssh terraform@$(terraform output -raw public_ip) -i ./tf-cloud-init
+
+# run the app
+cd go/src/github.com/hashicorp/learn-go-webapp-demo
+go run webapp.go
+

@@ -1,0 +1,35 @@
+#cloud-config
+# Add groups to the system
+# Adds the ubuntu group with members 'root' and 'sys'
+# and the empty group hashicorp.
+groups:
+  - ubuntu: [root]
+  - hashicorp
+
+# Add users to the system. Users are added after groups are added.
+users:
+  - default
+  - name: terraform
+    gecos: terraform
+    shell: /bin/bash
+    primary_group: hashicorp
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, admin
+    lock_passwd: false
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDqAMCrLC3SCfTJdrFTkTzJHJdorW+KPr1ScapreTOiiSqNmIBDSu/BebJ+rzEjRqt262VgTO8NVmXoOZfvVBlN0cedxaKhTmYWPwmT+++9RqBIGg7ieSKKknheqCP9K4KQnXHlFZ3irCLpGIOniS+HLRrFFGE/5qd1QBvHbwwISBlnjeUQlmuK3RVPswcwOLxHgFKJ/YkCGLaeRPqe6wBUUpU2tQJ8PhOfjBgxHiWvOS37V3Z6xMwvlNBoQhFfsa4Nd0s1EWT4Ru7KxbaZzEu4Hzv4MFVdlKk5Ok3rSqilKfIhcGSZn6wqA7hY7elyJ7ssXYI0mn/NtacaALyePJllCZ9zPfPP4olbD5kkYy0bzwHwCX2z5/xtxNGPqICOEPyJySGoFcjTk5ktC9pJPBOA76mErHx73HGB4y5WGhGxOeHeX9fB1ppHt2ZFYpPo9MtC9HbaCyji6BY2lIX7xUsvVKe/KwLCBqfWGhBWM6csF/Lqqx/bKtebGbgTgKVbDuM= your_email@example.com
+
+# Downloads the golang package
+packages:
+  - golang-go
+
+# Sets the GOPATH & downloads the demo payload
+runcmd:
+  - sudo su terraform
+  - sudo mkdir /home/terraform/go
+  - sudo chown terraform:hashicorp /home/terraform/go
+  - export GOPATH=/home/terraform/go
+  - go get github.com/hashicorp/learn-go-webapp-demo
+  - sudo firewall-cmd --add-service=http --permanent
+  - sudo firewall-cmd --zone=public --permanent --add-port=8080/tcp
+  - sudo firewall-cmd --reload
