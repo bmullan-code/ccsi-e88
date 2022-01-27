@@ -14,7 +14,7 @@ terraform -chdir=tf state list
 terraform -chdir=tf state show aws_instance.bm-assignment1
 
 Firewall commands
-
+sudo firewall-cmd --list-services
 sudo firewall-cmd --add-service=http --permanent
 sudo firewall-cmd --zone=public --permanent --add-port=8080/tcp
 sudo firewall-cmd --reload
@@ -35,3 +35,8 @@ ssh -i ./tf/tf-cloud-init terraform@$(terraform -chdir=tf output -raw public_ip)
 cd go/src/github.com/hashicorp/learn-go-webapp-demo
 go run webapp.go
 
+scp -i ./tf/tf-cloud-init ./html terraform@INSTANCE_IP:~ 
+
+sudo docker run -it --name my-apache-app-3 -p 8080:80 -v "$PWD/html":/usr/local/apache2/htdocs/ httpd:2.4
+
+sudo docker run -it --name my-apache-app-3 -p 8080:80 -v "$PWD/html":/usr/local/apache2/htdocs/ httpd:2.4
