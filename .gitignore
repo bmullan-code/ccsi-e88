@@ -25,7 +25,7 @@ hs_err_pid*
 assignment1/tf/tf-cloud-init
 assignment1/tf/tf-cloud-init.pub
 assignment1/tf/terraform.*
-
+assignment1/hw1-java/build
 .DS_Store
 .terraform.*
 .terraform
