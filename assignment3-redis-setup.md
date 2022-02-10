@@ -36,6 +36,16 @@ get session_id_1
 #### Redis Quick Start
 
 https://redis.io/topics/quickstart
+see Installing Redis more properly
+
+### Start/Stop/Config/Logs
+
+```
+sudo /etc/init.d/redis_6379 start
+sudo /etc/init.d/redis_6379 stop
+sudo vi /etc/redis/6379.conf
+cat /var/log/redis_6379.log
+```
 
 
 
