@@ -33,3 +33,9 @@ keys *
 get session_id_1
 ```
 
+#### Redis Quick Start
+
+https://redis.io/topics/quickstart
+
+
+
