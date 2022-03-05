@@ -65,7 +65,7 @@ put 'batch_views_hw6', '5 2022-01-25 5 http://example.com/?url=057','stats:ttfb'
 ### Get all query 1 results.
 
 ```
-scan 'batch_views_hw6', { STARTROW => '1', ENDROW => '2' }
+**scan 'batch_views_hw6', { STARTROW => '1', ENDROW => '2' }**
 ROW                                    COLUMN+CELL
  1 2022-01-25:06                       column=counts:unique_urls, timestamp=1646500543682, value=189
  1 2022-01-26:03                       column=counts:unique_urls, timestamp=1646500543685, value=187
