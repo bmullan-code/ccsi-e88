@@ -4,19 +4,26 @@
 # Problem 2
 
 Query1: get count of unique URLs per hour 
+```
 Key: 1 YYYY-MM-DD:HH Column Family:counts Column Field:unique_urls
-
+```
 Query2: get count of unique visitors per URL per hour 
+```
 Key: 2 URL YYYY-MM-DD:HH Column Family: Counts Column Field:unique_visitors
-
+```
 Query3: get count of events/clicks per URL per hour
+```
 Key: 3 URL YYYY-MM-DD:HH Column Family: Counts Column Field:clicks
+```
 
 Query4: get count of unique URLs by country by hour for a  specified time range [t1-t2]
+```
 Key: 4 CountryCode YYYY-MM-DD:HH Column Family:counts Column Field:unique_urls 
-
+```
 Query5: get top 5 URLs by smallest avg daily TTFB, per each day in the input data set 
+```
 Key: 5 YYYY-MM-DD Rank URL Column Family:stats Column Field:ttfb
+```
 
 ## Create Script
 ```
@@ -79,6 +86,7 @@ Took 0.0050 seconds
 ## Query 2
 
 ### Get all query 2 results
+```
 hbase(main):018:0> scan 'batch_views_hw6', { STARTROW => '2', ENDROW => '3' }
 ROW                                    COLUMN+CELL
  2 http://example.com/?url=024 2022-01 column=counts:unique_visitors, timestamp=1646500543706, value=150
@@ -92,7 +100,7 @@ ROW                                    COLUMN+CELL
 4 row(s)
 Took 0.0161 seconds
 ```
-#### Query 2: Get query 2 results for a particular url
+### Query 2: Get query 2 results for a particular url
 ```
 hbase(main):019:0> scan 'batch_views_hw6', { FILTER => "PrefixFilter('2 http://example.com/?url=067')" }
 ROW                                    COLUMN+CELL
@@ -119,7 +127,7 @@ Took 0.0076 seconds
 
 ## Query 3
 
-# Query 3 : Get all query 3 results
+### Query 3 : Get all query 3 results
 ```
 
 hbase(main):024:0* scan 'batch_views_hw6', { STARTROW => '3', ENDROW => '4' }
@@ -137,7 +145,7 @@ Took 0.0190 seconds
 
 ```
 
-# Query 3 : Get the clicks for a particular url and hour
+### Query 3 : Get the clicks for a particular url and hour
 ```
 hbase(main):025:0> get 'batch_views_hw6', '3 http://example.com/?url=067 2022-01-27:04',{ COLUMN => "counts:clicks" }
 COLUMN                                 CELL
@@ -149,7 +157,7 @@ Took 0.0143 seconds
 
 ## Query 4
 
-# Query 4 : Get all query 4 results
+### Query 4 : Get all query 4 results
 ```
 
 hbase(main):030:0* scan 'batch_views_hw6', { STARTROW => '4', ENDROW => '5' }
@@ -162,7 +170,7 @@ ROW                                    COLUMN+CELL
 Took 0.0138 seconds
 ```
 
-## Query 4 : Get results for a country
+### Query 4 : Get results for a country
 ```
 hbase(main):031:0> scan 'batch_views_hw6', { FILTER => "PrefixFilter('4 IE')" }
 ROW                                    COLUMN+CELL
@@ -172,7 +180,7 @@ ROW                                    COLUMN+CELL
 Took 0.0163 seconds
 ```
 
-## Query 4 : Get result for a country and hour
+### Query 4 : Get result for a country and hour
 ```
 hbase(main):033:0> get 'batch_views_hw6', '4 IE 2022-01-27:04',{ COLUMN => "counts:unique_urls" }
 COLUMN                                 CELL
@@ -181,9 +189,9 @@ COLUMN                                 CELL
 Took 0.0098 seconds
 ```
 
-# Query 5
+## Query 5
 
-## Query 5 : Get all results for query 5
+### Query 5 : Get all results for query 5
 ```
 hbase(main):037:0* scan 'batch_views_hw6', { STARTROW => '5', ENDROW => '6' }
 ROW                                    COLUMN+CELL
@@ -199,7 +207,7 @@ ROW                                    COLUMN+CELL
  l=057
  ```
  
- ## Query 5 : Get top ranked url for a day
+ ### Query 5 : Get top ranked url for a day
  ```
 hbase(main):038:0>  scan 'batch_views_hw6', { FILTER => "PrefixFilter('5 2022-01-25 1')" }
 ROW                                    COLUMN+CELL
